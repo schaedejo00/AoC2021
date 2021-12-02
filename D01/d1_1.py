@@ -1,7 +1,7 @@
 import numpy as np
 import re
 
-with open('input01_1.txt', 'r') as f:
+with open('input_1.txt', 'r') as f:
     arr = np.genfromtxt(f, dtype=int, delimiter='\n')
 previous = arr[0]
 
