@@ -7,7 +7,7 @@ def getRating(data: List[List[int]], mostCommon:bool) -> int:
     iterationNr = 0
 
     while (len(data) > 1):
-        relevantColumn = [column[iterationNr] for column in data]
+        relevantColumn = [row[iterationNr] for row in data]
         countOfOnes = len([True for i in range(0, len(relevantColumn)) if relevantColumn[i]==1])
         countOfZeros = len(relevantColumn) - countOfOnes
         mostCommonValue = 1 if countOfOnes >= countOfZeros else 0
