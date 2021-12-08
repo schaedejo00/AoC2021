@@ -5,35 +5,30 @@ import numpy as np
 
 from D05.Point import Point
 
-
-def addDigitToDict(digit: str, dictionary:dict()) -> dict():
-    digitLength = len(digit)
-    if digitLength == 2:
-        dictionary[digit] = [1]
-    elif digitLength == 3:
-        dictionary[digit] = [7]
-    elif digitLength == 4:
-        dictionary[digit] = [4]
-    elif digitLength == 5:
-        dictionary[digit] = [2, 3, 5]
-    elif digitLength == 6:
-        dictionary[digit] = [0, 6, 9]
-    elif digitLength == 7:
-        dictionary[digit] = [8]
+def initializeDict() -> dict():
+    dictionary = defaultdict(list)
+    dictionary[2] = [1]
+    dictionary[3] = [7]
+    dictionary[4] = [4]
+    dictionary[5] = [2, 3, 5]
+    dictionary[6] = [0, 6, 9]
+    dictionary[7] = [8]
     return dictionary
-
 
 # with open('example.txt', 'r', encoding="utf-8") as f:
 with open('input_1.txt', 'r', encoding="utf-8") as f:
     puzzleInput = f.read().split("\n")
 
 counter = 0
+
+digitLengthToDigits = initializeDict()
+
 for line in puzzleInput:
     signalArr, outputArr = [["".join(sorted(digit)) for digit in token.strip().split(" ")] for token in
                             line.strip().split("|")]
     newDict = defaultdict(list)
     for digit in signalArr:
-        newDict = addDigitToDict(digit, newDict)
+        newDict[digit] = digitLengthToDigits[len(digit)]
 
     for token in outputArr:
         numbers = newDict.get(token)
