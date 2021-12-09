@@ -19,6 +19,7 @@ lowPoints = heightMap.getLowPointList()
 
 riskLevel = 0
 for point in lowPoints:
-    riskLevel = riskLevel + heightMap.getMap()[point[0]][point[1]] + 1
+    pX, pY = point
+    riskLevel = riskLevel + heightMap.getMap()[pX][pY] + 1
 print(riskLevel, lowPoints)
 

@@ -1,4 +1,5 @@
 from collections import defaultdict
+from math import prod
 from typing import List
 
 import numpy as np
@@ -23,4 +24,4 @@ for point in lowPoints:
     basins.append(basinSize)
     print(point, basinSize)
 basins.sort(reverse=True)
-print(basins[0:3], basins[0]*basins[1]*basins[2])
+print(basins[0:3], prod(basins[0:3]))
