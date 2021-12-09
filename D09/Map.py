@@ -2,7 +2,6 @@ from queue import Queue
 
 import numpy as np
 
-
 class Map:
 
     def __init__(self, map: list[list[int]]):
