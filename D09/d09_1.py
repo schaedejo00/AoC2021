@@ -13,13 +13,13 @@ with open('input_1.txt', 'r', encoding="utf-8") as f:
 
 heightMap = Map([[int(n) for n in list(line)] for line in puzzleInput])
 
-print(heightMap.getMap())
+print(heightMap.map)
 
-lowPoints = heightMap.getLowPointList()
+lowPoints = heightMap.get_lowpoints()
 
 riskLevel = 0
 for point in lowPoints:
     pX, pY = point
-    riskLevel = riskLevel + heightMap.getMap()[pX][pY] + 1
+    riskLevel = riskLevel + heightMap.map[pX][pY] + 1
 print(riskLevel, lowPoints)
 

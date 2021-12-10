@@ -2,38 +2,39 @@ from queue import Queue
 
 import numpy as np
 
+
 class Map:
+    map: list[list[int]]
 
     def __init__(self, map: list[list[int]]):
         self.map = map
 
-    def isLowPoint(self, x: int, y: int) -> bool:
+    def is_low_point(self, point: (int, int)) -> bool:
+        x, y = point
         value = self.map[x][y]
-        neighbours = self.getNeighbours((x, y))
+        neighbours = self.get_neighbours_of_point((x, y))
         for neighbour in neighbours:
             nX, nY = neighbour
             if value >= self.map[nX][nY]:
                 return False
         return True
 
-    def getLowPointList(self) -> list[(int, int)]:
+    def get_lowpoints(self) -> list[(int, int)]:
         result = []
         for x in range(0, len(self.map)):
             for y in range(0, len(self.map[1])):
-                if self.isLowPoint(x, y):
+                if self.is_low_point((x, y)):
                     result.append((x, y))
         return result
 
-    def isIndexInBounds(self, point: (int, int)) -> bool:
+    def __is_index_in_bounds(self, point: (int, int)) -> bool:
         x, y = point
-        return x >= 0 and y >= 0 and x < len(self.map) and y < len(self.map[0])
+        return 0 <= x < len(self.map) and 0 <= y < len(self.map[0])
 
-    def getMap(self) -> list[list[int]]:
-        return self.map
 
-    def getBasinSize(self, point: (int, int)) -> int:
+    def compute_basin_size(self, point: (int, int)) -> int:
         neighbours = Queue()
-        [neighbours.put(n) for n in self.getNeighbours(point)]
+        [neighbours.put(n) for n in self.get_neighbours_of_point(point)]
 
         checked: list[(int, int)] = [point]
         basin: list[(int, int)] = [point]
@@ -42,19 +43,19 @@ class Map:
             x, y = neighbour
             if neighbour not in checked and self.map[x][y] < 9:
                 basin.append(neighbour)
-                [neighbours.put(n) for n in self.getNeighbours(neighbour) if n not in checked]
+                [neighbours.put(n) for n in self.get_neighbours_of_point(neighbour) if n not in checked]
             checked.append(neighbour)
-        #print("basin", point, basin)
+        # print("basin", point, basin)
         return len(basin)
 
-    def getNeighbours(self, point: (int, int)) -> list[(int, int)]:
-        xDiff = [-1, 0, 0, 1]
-        yDiff = [0, -1, 1, 0]
+    def get_neighbours_of_point(self, point: (int, int)) -> list[(int, int)]:
+        xDiff: [int] = [-1, 0, 0, 1]
+        yDiff: [int] = [0, -1, 1, 0]
         x, y = point
         neighbours: [(int, int)] = []
         for i in range(0, len(xDiff)):
-            xToCheck = x + xDiff[i]
-            yToCheck = y + yDiff[i]
-            if self.isIndexInBounds((xToCheck, yToCheck)):
+            xToCheck: int = x + xDiff[i]
+            yToCheck: int = y + yDiff[i]
+            if self.__is_index_in_bounds((xToCheck, yToCheck)):
                 neighbours.append((xToCheck, yToCheck))
         return neighbours
