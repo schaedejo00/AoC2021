@@ -1,10 +1,4 @@
-from collections import defaultdict
 from math import prod
-from typing import List
-
-import numpy as np
-
-from D05.Point import Point
 
 from Map import Map
 
