@@ -22,11 +22,10 @@ class OctopusMap:
         self.map = [[octopus+1 for octopus in row] for row in self.map]
         print(self.map)
 
+        #simulate flashes
         flashed: bool = True
         while flashed:
             flashed = False
-            current_flashes: int = self.flashes
-
             for x in range(0, len(self.map)):
                 for y in range(0, len(self.map)):
                     if self.map[x][y] > 9:
@@ -60,6 +59,6 @@ class OctopusMap:
                 n_y = y + y_diff
                 if self.__is_index_in_bounds((n_x, n_y)):
                     self.map[n_x][n_y] += 1
-        # als geflashed markieren
+        # mark as flashed
         self.map[x][y] = -sys.maxsize - 1
         return self.map[x][y]
