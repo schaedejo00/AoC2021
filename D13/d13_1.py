@@ -25,9 +25,9 @@ plt.imshow(field, interpolation='none')
 plt.show()
 
 for fold in folds:
-    dir, border = fold
+    direction, border = fold
     border = int(border)
-    if dir == 'y':
+    if direction == 'y':
         new_field = field[0:border]
         to_fold = field[(border + 1):]
         #print(dir, border, len(field), len(new_field), len(to_fold))
@@ -39,7 +39,7 @@ for fold in folds:
                     new_field[n_y][x] = 1
         field = new_field
         #print(dir, border, np.count_nonzero(field))
-    if dir == 'x':
+    if direction == 'x':
         new_field = [[line[i] for i in range(0, len(line)) if i < border] for line in field]
         to_fold = [[line[i] for i in range(0, len(line)) if i > border] for line in field]
         #print(dir, border, len(field[0]), len(new_field[0]), len(to_fold[0]))
