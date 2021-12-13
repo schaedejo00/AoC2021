@@ -10,7 +10,7 @@ coords: list[list[int]] = [[int(n) for n in line.split(",")] for line in puzzleI
 xs: [int] = [line[0] for line in coords]
 ys: [int] = [line[1] for line in coords]
 
-folds: [] = [[n for n in line[11:].split("=")]  for line in puzzleInput if line.startswith("fold along ")]
+folds: [] = [[n for n in line[11:].split("=")] for line in puzzleInput if line.startswith("fold along ")]
 print(coords, folds)
 
 field: list[list[int]] =np.zeros((np.max(ys)+1, np.max(xs)+1), int)
@@ -48,14 +48,8 @@ for fold in folds:
             for x in range(0, len(to_fold[0])):
                 n_x = max_x - x
                 if to_fold[y][x] == 1:
-                    #if new_field[y][n_x] == 1:
-                    #    print((x, y), "->", (n_x, y))
                     new_field[y][n_x] = 1
-
         field = new_field
-        #print(dir, border, np.count_nonzero(field))
-
-#print(field)
 
 plt.imshow(field, interpolation='none')
 plt.show()
