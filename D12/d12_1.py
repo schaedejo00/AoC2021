@@ -1,15 +1,21 @@
+from D12.CavePath import CavePath
+from D12.UnweightedGraph import UnweightedGraph
 
-from D12.Graph import Graph
-
-with open('example.txt', 'r', encoding="utf-8") as f:
-#with open('input_1.txt', 'r', encoding="utf-8") as f:
+#with open('example3.txt', 'r', encoding="utf-8") as f:
+with open('input_1.txt', 'r', encoding="utf-8") as f:
     puzzleInput = f.read().split("\n")
 
-graph: Graph = Graph()
+graph: UnweightedGraph = UnweightedGraph()
+
 
 for line in puzzleInput:
     start, end = line.split("-")
     graph.add_edge(start, end)
+    graph.add_edge(end, start)
+path: CavePath = CavePath()
+paths = path.get_all_path(graph, "start", "end", 2)
+#print(graph)
+print(len(paths))
 
-print(graph)
+
 
